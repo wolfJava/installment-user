@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wolfman.installment.user.dal.mapper.OauthClientMapper" >
+    <resultMap id="BaseResultMap" type="com.wolfman.installment.user.dal.entity.OauthClient" >
+        <id column="client_id" property="clientId" jdbcType="VARCHAR" />
+        <result column="client_secret" property="clientSecret" jdbcType="VARCHAR" />
+        <result column="scope" property="scope" jdbcType="VARCHAR" />
+        <result column="authroized_grant_types" property="authroizedGrantTypes" jdbcType="VARCHAR" />
+        <result column="redirection_uri" property="redirectionUri" jdbcType="VARCHAR" />
+        <result column="access_token_expires_in" property="accessTokenExpiresIn" jdbcType="INTEGER" />
+        <result column="refresh_token_expires_in" property="refreshTokenExpiresIn" jdbcType="INTEGER" />
+        <result column="account_type" property="accountType" jdbcType="VARCHAR" />
+        <result column="auto_approve" property="autoApprove" jdbcType="BIT" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        client_id, client_secret, scope, authroized_grant_types, redirection_uri, access_token_expires_in,
+        refresh_token_expires_in, account_type, auto_approve, description, create_time, modify_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from oauth_client
+        where client_id = #{clientId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from oauth_client
+        where client_id = #{clientId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.wolfman.installment.user.dal.entity.OauthClient" >
+        insert into oauth_client (client_id, client_secret, scope,
+        authroized_grant_types, redirection_uri, access_token_expires_in,
+        refresh_token_expires_in, account_type, auto_approve,
+        description, create_time, modify_time
+        )
+        values (#{clientId,jdbcType=VARCHAR}, #{clientSecret,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR},
+        #{authroizedGrantTypes,jdbcType=VARCHAR}, #{redirectionUri,jdbcType=VARCHAR}, #{accessTokenExpiresIn,jdbcType=INTEGER},
+        #{refreshTokenExpiresIn,jdbcType=INTEGER}, #{accountType,jdbcType=VARCHAR}, #{autoApprove,jdbcType=BIT},
+        #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.wolfman.installment.user.dal.entity.OauthClient" >
+        insert into oauth_client
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="clientSecret != null" >
+                client_secret,
+            </if>
+            <if test="scope != null" >
+                scope,
+            </if>
+            <if test="authroizedGrantTypes != null" >
+                authroized_grant_types,
+            </if>
+            <if test="redirectionUri != null" >
+                redirection_uri,
+            </if>
+            <if test="accessTokenExpiresIn != null" >
+                access_token_expires_in,
+            </if>
+            <if test="refreshTokenExpiresIn != null" >
+                refresh_token_expires_in,
+            </if>
+            <if test="accountType != null" >
+                account_type,
+            </if>
+            <if test="autoApprove != null" >
+                auto_approve,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="modifyTime != null" >
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="clientId != null" >
+                #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="clientSecret != null" >
+                #{clientSecret,jdbcType=VARCHAR},
+            </if>
+            <if test="scope != null" >
+                #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="authroizedGrantTypes != null" >
+                #{authroizedGrantTypes,jdbcType=VARCHAR},
+            </if>
+            <if test="redirectionUri != null" >
+                #{redirectionUri,jdbcType=VARCHAR},
+            </if>
+            <if test="accessTokenExpiresIn != null" >
+                #{accessTokenExpiresIn,jdbcType=INTEGER},
+            </if>
+            <if test="refreshTokenExpiresIn != null" >
+                #{refreshTokenExpiresIn,jdbcType=INTEGER},
+            </if>
+            <if test="accountType != null" >
+                #{accountType,jdbcType=VARCHAR},
+            </if>
+            <if test="autoApprove != null" >
+                #{autoApprove,jdbcType=BIT},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null" >
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wolfman.installment.user.dal.entity.OauthClient" >
+        update oauth_client
+        <set >
+            <if test="clientSecret != null" >
+                client_secret = #{clientSecret,jdbcType=VARCHAR},
+            </if>
+            <if test="scope != null" >
+                scope = #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="authroizedGrantTypes != null" >
+                authroized_grant_types = #{authroizedGrantTypes,jdbcType=VARCHAR},
+            </if>
+            <if test="redirectionUri != null" >
+                redirection_uri = #{redirectionUri,jdbcType=VARCHAR},
+            </if>
+            <if test="accessTokenExpiresIn != null" >
+                access_token_expires_in = #{accessTokenExpiresIn,jdbcType=INTEGER},
+            </if>
+            <if test="refreshTokenExpiresIn != null" >
+                refresh_token_expires_in = #{refreshTokenExpiresIn,jdbcType=INTEGER},
+            </if>
+            <if test="accountType != null" >
+                account_type = #{accountType,jdbcType=VARCHAR},
+            </if>
+            <if test="autoApprove != null" >
+                auto_approve = #{autoApprove,jdbcType=BIT},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null" >
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where client_id = #{clientId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wolfman.installment.user.dal.entity.OauthClient" >
+        update oauth_client
+        set client_secret = #{clientSecret,jdbcType=VARCHAR},
+        scope = #{scope,jdbcType=VARCHAR},
+        authroized_grant_types = #{authroizedGrantTypes,jdbcType=VARCHAR},
+        redirection_uri = #{redirectionUri,jdbcType=VARCHAR},
+        access_token_expires_in = #{accessTokenExpiresIn,jdbcType=INTEGER},
+        refresh_token_expires_in = #{refreshTokenExpiresIn,jdbcType=INTEGER},
+        account_type = #{accountType,jdbcType=VARCHAR},
+        auto_approve = #{autoApprove,jdbcType=BIT},
+        description = #{description,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+        where client_id = #{clientId,jdbcType=VARCHAR}
+    </update>
+</mapper>

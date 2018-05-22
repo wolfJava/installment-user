@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wolfman.installment.user.dal.mapper.OauthAccessTokenMapper" >
+    <resultMap id="BaseResultMap" type="com.wolfman.installment.user.dal.entity.OauthAccessToken" >
+        <result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+        <result column="authorize_code" property="authorizeCode" jdbcType="VARCHAR" />
+        <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+        <result column="device" property="device" jdbcType="VARCHAR" />
+        <result column="expiration" property="expiration" jdbcType="TIMESTAMP" />
+        <result column="grant_type" property="grantType" jdbcType="VARCHAR" />
+        <result column="ip_address" property="ipAddress" jdbcType="VARCHAR" />
+        <result column="refresh_token" property="refreshToken" jdbcType="VARCHAR" />
+        <result column="revoked" property="revoked" jdbcType="BIT" />
+        <result column="scope" property="scope" jdbcType="VARCHAR" />
+        <result column="user_agent" property="userAgent" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="user_permission" property="userPermission" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+        access_token, authorize_code, client_id, device, expiration, grant_type, ip_address,
+        refresh_token, revoked, scope, user_agent, user_id, user_permission, create_time,
+        modify_time
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessTokenExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from oauth_access_token
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from oauth_access_token
+        where access_token = #{accessToken,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByUserIdAndRevoked" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM oauth_access_token
+        WHERE user_id = #{userId,jdbcType=BIGINT} AND revoked = #{revoked,jdbcType=BIT}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from oauth_access_token
+        where access_token = #{accessToken,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessTokenExample" >
+        delete from oauth_access_token
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessToken" >
+        insert into oauth_access_token (access_token, authorize_code, client_id,
+        device, expiration, grant_type,
+        ip_address, refresh_token, revoked,
+        scope, user_agent, user_id,
+        user_permission, create_time, modify_time
+        )
+        values (#{accessToken,jdbcType=VARCHAR}, #{authorizeCode,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR},
+        #{device,jdbcType=VARCHAR}, #{expiration,jdbcType=TIMESTAMP}, #{grantType,jdbcType=VARCHAR},
+        #{ipAddress,jdbcType=VARCHAR}, #{refreshToken,jdbcType=VARCHAR}, #{revoked,jdbcType=BIT},
+        #{scope,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT},
+        #{userPermission,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessToken" >
+        insert into oauth_access_token
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="accessToken != null" >
+                access_token,
+            </if>
+            <if test="authorizeCode != null" >
+                authorize_code,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="device != null" >
+                device,
+            </if>
+            <if test="expiration != null" >
+                expiration,
+            </if>
+            <if test="grantType != null" >
+                grant_type,
+            </if>
+            <if test="ipAddress != null" >
+                ip_address,
+            </if>
+            <if test="refreshToken != null" >
+                refresh_token,
+            </if>
+            <if test="revoked != null" >
+                revoked,
+            </if>
+            <if test="scope != null" >
+                scope,
+            </if>
+            <if test="userAgent != null" >
+                user_agent,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="userPermission != null" >
+                user_permission,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="modifyTime != null" >
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="accessToken != null" >
+                #{accessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="authorizeCode != null" >
+                #{authorizeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientId != null" >
+                #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="device != null" >
+                #{device,jdbcType=VARCHAR},
+            </if>
+            <if test="expiration != null" >
+                #{expiration,jdbcType=TIMESTAMP},
+            </if>
+            <if test="grantType != null" >
+                #{grantType,jdbcType=VARCHAR},
+            </if>
+            <if test="ipAddress != null" >
+                #{ipAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="refreshToken != null" >
+                #{refreshToken,jdbcType=VARCHAR},
+            </if>
+            <if test="revoked != null" >
+                #{revoked,jdbcType=BIT},
+            </if>
+            <if test="scope != null" >
+                #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="userAgent != null" >
+                #{userAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="userPermission != null" >
+                #{userPermission,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null" >
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessTokenExample" resultType="java.lang.Integer" >
+        select count(*) from oauth_access_token
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update oauth_access_token
+        <set >
+            <if test="record.accessToken != null" >
+                access_token = #{record.accessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="record.authorizeCode != null" >
+                authorize_code = #{record.authorizeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientId != null" >
+                client_id = #{record.clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.device != null" >
+                device = #{record.device,jdbcType=VARCHAR},
+            </if>
+            <if test="record.expiration != null" >
+                expiration = #{record.expiration,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.grantType != null" >
+                grant_type = #{record.grantType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ipAddress != null" >
+                ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.refreshToken != null" >
+                refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
+            </if>
+            <if test="record.revoked != null" >
+                revoked = #{record.revoked,jdbcType=BIT},
+            </if>
+            <if test="record.scope != null" >
+                scope = #{record.scope,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userAgent != null" >
+                user_agent = #{record.userAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userId != null" >
+                user_id = #{record.userId,jdbcType=BIGINT},
+            </if>
+            <if test="record.userPermission != null" >
+                user_permission = #{record.userPermission,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null" >
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.modifyTime != null" >
+                modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update oauth_access_token
+        set access_token = #{record.accessToken,jdbcType=VARCHAR},
+        authorize_code = #{record.authorizeCode,jdbcType=VARCHAR},
+        client_id = #{record.clientId,jdbcType=VARCHAR},
+        device = #{record.device,jdbcType=VARCHAR},
+        expiration = #{record.expiration,jdbcType=TIMESTAMP},
+        grant_type = #{record.grantType,jdbcType=VARCHAR},
+        ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+        refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
+        revoked = #{record.revoked,jdbcType=BIT},
+        scope = #{record.scope,jdbcType=VARCHAR},
+        user_agent = #{record.userAgent,jdbcType=VARCHAR},
+        user_id = #{record.userId,jdbcType=BIGINT},
+        user_permission = #{record.userPermission,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessToken" >
+        update oauth_access_token
+        <set >
+            <if test="authorizeCode != null" >
+                authorize_code = #{authorizeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="clientId != null" >
+                client_id = #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="device != null" >
+                device = #{device,jdbcType=VARCHAR},
+            </if>
+            <if test="expiration != null" >
+                expiration = #{expiration,jdbcType=TIMESTAMP},
+            </if>
+            <if test="grantType != null" >
+                grant_type = #{grantType,jdbcType=VARCHAR},
+            </if>
+            <if test="ipAddress != null" >
+                ip_address = #{ipAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="refreshToken != null" >
+                refresh_token = #{refreshToken,jdbcType=VARCHAR},
+            </if>
+            <if test="revoked != null" >
+                revoked = #{revoked,jdbcType=BIT},
+            </if>
+            <if test="scope != null" >
+                scope = #{scope,jdbcType=VARCHAR},
+            </if>
+            <if test="userAgent != null" >
+                user_agent = #{userAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="userPermission != null" >
+                user_permission = #{userPermission,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null" >
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where access_token = #{accessToken,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wolfman.installment.user.dal.entity.OauthAccessToken" >
+        update oauth_access_token
+        set authorize_code = #{authorizeCode,jdbcType=VARCHAR},
+        client_id = #{clientId,jdbcType=VARCHAR},
+        device = #{device,jdbcType=VARCHAR},
+        expiration = #{expiration,jdbcType=TIMESTAMP},
+        grant_type = #{grantType,jdbcType=VARCHAR},
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+        refresh_token = #{refreshToken,jdbcType=VARCHAR},
+        revoked = #{revoked,jdbcType=BIT},
+        scope = #{scope,jdbcType=VARCHAR},
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=BIGINT},
+        user_permission = #{userPermission,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+        where access_token = #{accessToken,jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="updateBatch"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update oauth_access_token
+            set authorize_code = #{item.authorizeCode,jdbcType=VARCHAR},
+            client_id = #{item.clientId,jdbcType=VARCHAR},
+            device = #{item.device,jdbcType=VARCHAR},
+            expiration = #{item.expiration,jdbcType=TIMESTAMP},
+            grant_type = #{item.grantType,jdbcType=VARCHAR},
+            ip_address = #{item.ipAddress,jdbcType=VARCHAR},
+            refresh_token = #{item.refreshToken,jdbcType=VARCHAR},
+            revoked = #{item.revoked,jdbcType=BIT},
+            scope = #{item.scope,jdbcType=VARCHAR},
+            user_agent = #{item.userAgent,jdbcType=VARCHAR},
+            user_id = #{item.userId,jdbcType=BIGINT},
+            user_permission = #{item.userPermission,jdbcType=VARCHAR},
+            create_time = #{item.createTime,jdbcType=TIMESTAMP},
+            modify_time = #{item.modifyTime,jdbcType=TIMESTAMP}
+            where access_token = #{item.accessToken,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+
+
+</mapper>

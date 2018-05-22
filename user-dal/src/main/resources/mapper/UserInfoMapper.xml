@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wolfman.installment.user.dal.mapper.UserInfoMapper" >
+    <resultMap id="BaseResultMap" type="com.wolfman.installment.user.dal.entity.UserInfo" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="channel" property="channel" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="enabled_state" property="enabledState" jdbcType="INTEGER" />
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+        <result column="open_id" property="openId" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+        <result column="referer_id" property="refererId" jdbcType="BIGINT" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, channel, create_time, description, email, enabled_state, modify_time, open_id,
+        password, phone_number, referer_id, user_name, uuid
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByPhoneNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where phone_number = #{phoneNumber,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPhoneNumberAndPassword" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user_info
+        WHERE phone_number = #{phoneNumber,jdbcType=VARCHAR} AND password = #{password,jdbcType=VARCHAR}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+        delete from user_info
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.wolfman.installment.user.dal.entity.UserInfo" >
+        insert into user_info (id, channel, create_time,
+        description, email, enabled_state,
+        modify_time, open_id, password,
+        phone_number, referer_id, user_name,
+        uuid)
+        values (#{id,jdbcType=BIGINT}, #{channel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{description,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{enabledState,jdbcType=INTEGER},
+        #{modifyTime,jdbcType=TIMESTAMP}, #{openId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{phoneNumber,jdbcType=VARCHAR}, #{refererId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR},
+        #{uuid,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.wolfman.installment.user.dal.entity.UserInfo" >
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="channel != null" >
+                channel,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="enabledState != null" >
+                enabled_state,
+            </if>
+            <if test="modifyTime != null" >
+                modify_time,
+            </if>
+            <if test="openId != null" >
+                open_id,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="phoneNumber != null" >
+                phone_number,
+            </if>
+            <if test="refererId != null" >
+                referer_id,
+            </if>
+            <if test="userName != null" >
+                user_name,
+            </if>
+            <if test="uuid != null" >
+                uuid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="channel != null" >
+                #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="enabledState != null" >
+                #{enabledState,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null" >
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openId != null" >
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null" >
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="refererId != null" >
+                #{refererId,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null" >
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wolfman.installment.user.dal.entity.UserInfo" >
+        update user_info
+        <set >
+            <if test="channel != null" >
+                channel = #{channel,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="enabledState != null" >
+                enabled_state = #{enabledState,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null" >
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="openId != null" >
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null" >
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="refererId != null" >
+                referer_id = #{refererId,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null" >
+                uuid = #{uuid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wolfman.installment.user.dal.entity.UserInfo" >
+        update user_info
+        set channel = #{channel,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        description = #{description,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        enabled_state = #{enabledState,jdbcType=INTEGER},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        open_id = #{openId,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+        referer_id = #{refererId,jdbcType=BIGINT},
+        user_name = #{userName,jdbcType=VARCHAR},
+        uuid = #{uuid,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>
